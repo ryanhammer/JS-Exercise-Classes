@@ -110,6 +110,7 @@ class Airplane {
           + Speaking should return a phrase `Hello my name is {name}, I am from {location}`.
           + {name} and {location} of course come from the instance's own properties.
   */
+
  class Lambdasian {
      constructor(attrs) {
          this.name = attrs.name;
@@ -135,6 +136,7 @@ class Airplane {
           + `demo` receives a `subject` string as an argument and returns the phrase 'Today we are learning about {subject}' where subject is the param passed in.
           + `grade` receives a `student` object and a `subject` string as arguments and returns '{student.name} receives a perfect score on {subject}'
   */
+
  class Instructor extends Lambdasian {
     constructor(attrs) {
         super(attrs);
@@ -148,7 +150,15 @@ class Airplane {
     grade(student, subject) {
         return `${student.name} receives a perfect score on ${subject}`;
     }
+    evaluate(student) {
+        let gradeDelta = Math.floor(1 - 2 * Math.random()) * (Math.floor(100 * Math.random()) + 1);
+        student.grade += gradeDelta;
+        if (student.grade < 0) {
+            student.grade = 0;
+        }
+    }
  }
+
   /*
     TASK 5
       - Write a Student class extending Lambdasian.
@@ -164,12 +174,14 @@ class Airplane {
           + `PRAssignment` a method that receives a subject as an argument and returns `student.name has submitted a PR for {subject}`
           + `sprintChallenge` similar to PRAssignment but returns `student.name has begun sprint challenge on {subject}`
   */
+
  class Student extends Lambdasian {
      constructor(attrs) {
          super(attrs);
          this.previousBackground = attrs.previousBackground;
          this.className = attrs.className;
          this.favSubjects = attrs.favSubjects;
+         this.grade = Math.floor(100 * Math.random()) + 1;
      }
      listSubjects() {
          return `Loving ${this.favSubjects}!`;
@@ -179,6 +191,14 @@ class Airplane {
      }
      sprintChallenge(subject) {
         return `${this.name} has submitted a PR for ${subject}`;
+     }
+     graduate() {
+        if (this.grade > 70) {
+            return `${this.name} is ready to graduate!`;
+        }
+        else {
+            return `${this.name} has not yet met the required grade to graduate and should receive further grading`;
+        }
     }
  }
   
